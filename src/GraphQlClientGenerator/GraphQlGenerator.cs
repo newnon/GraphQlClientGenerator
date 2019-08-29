@@ -321,6 +321,9 @@ using Newtonsoft.Json.Linq;
                         case GraphQlTypeBase.GraphQlTypeScalarId:
                             propertyType = GetIdNetType();
                             break;
+                        case GraphQlTypeBase.GraphQlTypeScalarDateTime:
+                            propertyType = "DateTime?";
+                            break;
                         default:
                             propertyType = GetCustomScalarType(baseType, fieldType, member.Name);
                             break;
