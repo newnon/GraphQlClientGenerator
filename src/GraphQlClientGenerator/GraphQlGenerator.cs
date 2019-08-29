@@ -579,7 +579,7 @@ using Newtonsoft.Json.Linq;
             if (isCollection)
                 argumentNetType = $"IEnumerable<{argumentNetType}>";
 
-            var argumentDefinition = $"{argumentNetType} {argument.Name}";
+            var argumentDefinition = $"{argumentNetType} {NamingHelper.ToValidVariableName(argument.Name)}";
             if (!isArgumentNotNull)
                 argumentDefinition = $"{argumentDefinition} = null";
 
@@ -602,11 +602,11 @@ using Newtonsoft.Json.Linq;
             foreach (var arg in args)
             {
                 if (arg.Type.Kind == GraphQlTypeKindNonNull)
-                    builder.AppendLine($"        args.Add(\"{arg.Name}\", {arg.Name});");
+                    builder.AppendLine($"        args.Add(\"{arg.Name}\", {NamingHelper.ToValidVariableName(arg.Name)});");
                 else
                 {
-                    builder.AppendLine($"        if ({arg.Name} != null)");
-                    builder.AppendLine($"            args.Add(\"{arg.Name}\", {arg.Name});");
+                    builder.AppendLine($"        if ({NamingHelper.ToValidVariableName(arg.Name)} != null)");
+                    builder.AppendLine($"            args.Add(\"{arg.Name}\", {NamingHelper.ToValidVariableName(arg.Name)});");
                     builder.AppendLine();
                 }
             }
